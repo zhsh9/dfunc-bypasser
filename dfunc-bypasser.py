@@ -56,9 +56,9 @@ if(args.url):
     url = args.url
     headers = parse_headers(args.headers)
     if args.proxy:
-        phpinfo = requests.get(url, headers=args.headers, proxies=proxies).text
+        phpinfo = requests.get(url, headers=headers, proxies=proxies).text
     else:
-        phpinfo = requests.get(url, headers=args.headers).text
+        phpinfo = requests.get(url, headers=headers).text
 
 elif(args.file):
     phpinfofile = args.file
