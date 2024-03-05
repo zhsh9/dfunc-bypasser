@@ -14,6 +14,8 @@ There are two options to input the disable_functions list:
 `python dfunc-bypasser.py --url https://example.com/phpinfo.php`
 3. Provide the local phpinfo file:
 `python dfunc-bypasser.py --file dir/phpinfo`
+4. Provide the customized headers: `python dfunc-bypasser.py --url https://example.com/phpinfo.php --headers A:B`
+5. Provide the proxy: `python dfunc-bypasser.py --url https://example.com/phpinfo.php --proxy 127.0.0.1:8080`
 
 ## Contributers
 1. S Ashwin Shenoi
@@ -25,7 +27,21 @@ There are two options to input the disable_functions list:
 
 from team [bi0s](https://bi0s.in)
 
+3. zhsh9
+    * Github: [zhsh9](https://github.com/zhsh9)
+    * HackTheBox: [
+3C11P53](https://app.hackthebox.com/profile/1736556)
+
+from team [NoobCat](https://app.hackthebox.com/public/teams/overview/5973)
+
 ## Screenshots
+
 ![](images/screenshot-url.png)
 
 ![](images/screenshot-file.png)
+
+Use dfunc-bypasser with headers and proxy options:
+
+![](images/screenshot-url-options.png)
+
+![](images/screenshot-burp-proxy.png)
