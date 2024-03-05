@@ -5,7 +5,7 @@ import requests
 parser = argparse.ArgumentParser()
 parser.add_argument("--url", help="PHPinfo URL: eg. https://example.com/phpinfo.php")
 parser.add_argument("--file", help="PHPinfo localfile path: eg. dir/phpinfo")
-parser.add_argument("--headers", help="Header to be used when requesting the URL: eg. {'name':'value'}", default=None)
+parser.add_argument("--headers", help="Custom headers to use for the request, e.g., 'User-Agent:MyApp,Accept:application/json'", default=None)
 parser.add_argument("--proxy", help="Proxy to use for requests, e.g., 127.0.0.1:8080", default=None)
 
 args = parser.parse_args()
@@ -34,6 +34,16 @@ print(colors.green + """
 
 """ + "\n\t\t\t" + colors.blue + "authors: " + colors.orange + "__c3rb3ru5__" + ", " + "$_SpyD3r_$" + ", " + "__zhsh9__" + "\n" + colors.reset)
 
+# Function to parse the header string into a dictionary
+def parse_headers(header_string):
+    headers = {}
+    if header_string:
+        # Split the string into individual headers on comma, then split on colon to get key-value pairs
+        for header_pair in header_string.split(','):
+            key, value = header_pair.split(':', 1)
+            headers[key.strip()] = value.strip()
+    return headers
+
 # Initialize the proxies dictionary
 proxies = {}
 if args.proxy:
@@ -44,6 +54,7 @@ if args.proxy:
 
 if(args.url):
     url = args.url
+    headers = parse_headers(args.headers)
     if args.proxy:
         phpinfo = requests.get(url, headers=args.headers, proxies=proxies).text
     else:
