@@ -5,7 +5,8 @@ import requests
 parser = argparse.ArgumentParser()
 parser.add_argument("--url", help="PHPinfo URL: eg. https://example.com/phpinfo.php")
 parser.add_argument("--file", help="PHPinfo localfile path: eg. dir/phpinfo")
-parser.add_argument("--headers", help="Header to be used when requesting the URL: eg. {'name':'value'}", default="")
+parser.add_argument("--headers", help="Header to be used when requesting the URL: eg. {'name':'value'}", default=None)
+parser.add_argument("--proxy", help="Proxy to use for requests, e.g., 127.0.0.1:8080", default=None)
 
 args = parser.parse_args()
 
@@ -31,11 +32,22 @@ print(colors.green + """
                                   |   ,.'       
                                   '---'         
 
-""" + "\n\t\t\t" + colors.blue + "authors: " + colors.orange + "__c3rb3ru5__" + ", " + "$_SpyD3r_$" + "__zhsh9__" + "\n" + colors.reset)
+""" + "\n\t\t\t" + colors.blue + "authors: " + colors.orange + "__c3rb3ru5__" + ", " + "$_SpyD3r_$" + ", " + "__zhsh9__" + "\n" + colors.reset)
+
+# Initialize the proxies dictionary
+proxies = {}
+if args.proxy:
+    proxies = {
+        'http': f'http://{args.proxy}',
+        'https': f'http://{args.proxy}'
+    }
 
 if(args.url):
     url = args.url
-    phpinfo = requests.get(url, headers=args.headers).text
+    if args.proxy:
+        phpinfo = requests.get(url, headers=args.headers, proxies=proxies).text
+    else:
+        phpinfo = requests.get(url, headers=args.headers).text
 
 elif(args.file):
     phpinfofile = args.file
